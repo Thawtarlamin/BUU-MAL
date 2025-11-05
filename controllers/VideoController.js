@@ -22,16 +22,39 @@ class VideoController {
             const result = await this.videoModel.scrapeVideos(page, tag, includeDetails);
             
             if (result.success) {
+                // Save successful scrape
+                if (result.videos.length > 0) {
+                    this.storageModel.saveToJson(result.videos);
+                }
+                
                 res.json({
                     success: true,
                     data: result,
                     message: `Successfully scraped ${result.videos.length} videos from page ${page}`
                 });
             } else {
-                res.status(500).json({
-                    success: false,
-                    error: result.error
-                });
+                // If scraping fails, try to return cached data as fallback
+                const cachedData = this.storageModel.loadFromJson();
+                
+                if (cachedData.success && cachedData.videos.length > 0) {
+                    res.json({
+                        success: true,
+                        data: {
+                            videos: cachedData.videos.slice(0, 20), // Return first 20
+                            count: Math.min(20, cachedData.videos.length),
+                            page: page
+                        },
+                        message: 'Live scraping failed. Returning cached data.',
+                        warning: 'Using cached data due to scraping error: ' + result.error,
+                        cached: true
+                    });
+                } else {
+                    res.status(500).json({
+                        success: false,
+                        error: result.error,
+                        message: 'Scraping failed and no cached data available'
+                    });
+                }
             }
         } catch (error) {
             res.status(500).json({
@@ -61,11 +84,17 @@ class VideoController {
             }
 
             const allVideos = [];
+            let hasErrors = false;
+            let errorMessage = '';
 
             for (let page = startPage; page <= endPage; page++) {
                 const result = await this.videoModel.scrapeVideos(page, tag, includeDetails);
                 if (result.success) {
                     allVideos.push(...result.videos);
+                } else {
+                    hasErrors = true;
+                    errorMessage = result.error;
+                    console.log(`Failed to scrape page ${page}: ${result.error}`);
                 }
                 
                 // Rate limiting
@@ -74,19 +103,44 @@ class VideoController {
                 }
             }
 
-            // Save to storage
-            this.storageModel.saveToJson(allVideos);
-            this.storageModel.saveToCsv(allVideos);
+            // If we got some videos, save them
+            if (allVideos.length > 0) {
+                this.storageModel.saveToJson(allVideos);
+                this.storageModel.saveToCsv(allVideos);
 
-            res.json({
-                success: true,
-                data: {
-                    videos: allVideos,
-                    count: allVideos.length,
-                    pages: `${startPage}-${endPage}`
-                },
-                message: `Successfully scraped ${allVideos.length} videos from pages ${startPage} to ${endPage}`
-            });
+                res.json({
+                    success: true,
+                    data: {
+                        videos: allVideos,
+                        count: allVideos.length,
+                        pages: `${startPage}-${endPage}`
+                    },
+                    message: `Successfully scraped ${allVideos.length} videos from pages ${startPage} to ${endPage}`,
+                    warning: hasErrors ? `Some pages failed: ${errorMessage}` : null
+                });
+            } else {
+                // No videos scraped, return cached data
+                const cachedData = this.storageModel.loadFromJson();
+                
+                if (cachedData.success && cachedData.videos.length > 0) {
+                    res.json({
+                        success: true,
+                        data: {
+                            videos: cachedData.videos,
+                            count: cachedData.videos.length,
+                            pages: 'cached'
+                        },
+                        message: 'Live scraping failed. Returning all cached data.',
+                        warning: 'Using cached data due to scraping error: ' + errorMessage,
+                        cached: true
+                    });
+                } else {
+                    res.status(500).json({
+                        success: false,
+                        error: errorMessage || 'Failed to scrape any pages and no cached data available'
+                    });
+                }
+            }
         } catch (error) {
             res.status(500).json({
                 success: false,

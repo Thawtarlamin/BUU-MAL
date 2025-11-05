@@ -1,587 +1,1172 @@
-# 🎬 Buumal Video Scraper# 🎬 Buumal Video Scraper - MVC Architecture
+# 🎬 Buumal Video Scraper# 🎬 Buumal Video Scraper# 🎬 Buumal Video Scraper - MVC Architecture
 
 
 
-A professional web scraping tool for **buumal.com** video content extraction, built with **Node.js**, **Express.js**, and following **MVC architecture** principles.A professional web scraper for buumal.com built with **MVC (Model-View-Controller)** architecture pattern using Node.js, Express, Cheerio, and Axios.
+A professional web scraping application for **buumal.com** video content extraction, built with **Node.js**, **Express.js**, and following **MVC architecture** principles.
 
 
 
-![Node.js](https://img.shields.io/badge/Node.js-v14+-green.svg)## 🏗️ Architecture Overview
+[![Node.js](https://img.shields.io/badge/Node.js-v14+-green.svg)](https://nodejs.org/)A professional web scraping tool for **buumal.com** video content extraction, built with **Node.js**, **Express.js**, and following **MVC architecture** principles.A professional web scraper for buumal.com built with **MVC (Model-View-Controller)** architecture pattern using Node.js, Express, Cheerio, and Axios.
 
-![Express](https://img.shields.io/badge/Express-v5.1.0-blue.svg)
+[![Express](https://img.shields.io/badge/Express-v5.1.0-blue.svg)](https://expressjs.com/)
 
-![License](https://img.shields.io/badge/license-MIT-green.svg)This project follows the **MVC design pattern** for clean, maintainable, and scalable code:
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 
 
-## ✨ Features```
+---![Node.js](https://img.shields.io/badge/Node.js-v14+-green.svg)## 🏗️ Architecture Overview
 
-buumal/
 
-- 🎯 **Smart Web Scraping** - Intelligent video extraction with Cheerio├── app.js                    # Main application entry point
+
+## ✨ Features![Express](https://img.shields.io/badge/Express-v5.1.0-blue.svg)
+
+
+
+- 🎯 **Smart Web Scraping** - Intelligent video data extraction with Cheerio![License](https://img.shields.io/badge/license-MIT-green.svg)This project follows the **MVC design pattern** for clean, maintainable, and scalable code:
+
+- 🏷️ **Tag-Based Filtering** - Filter videos by 8 available categories
+
+- 📊 **Interactive Dashboard** - Real-time scraping with beautiful UI
+
+- 🎬 **Video Detail Pages** - Full video player with complete metadata
+
+- 💾 **Multiple Export Formats** - JSON and CSV output support## ✨ Features```
+
+- 🔄 **Rate Limiting** - Smart delays to prevent server overload
+
+- 🏗️ **MVC Architecture** - Clean, maintainable, and scalable code structurebuumal/
+
+- 📡 **RESTful API** - Well-documented API endpoints
+
+- ⚡ **Retry Logic** - Automatic retry with exponential backoff- 🎯 **Smart Web Scraping** - Intelligent video extraction with Cheerio├── app.js                    # Main application entry point
+
+- 🎨 **Responsive Design** - Mobile-friendly web interface
 
 - 🏷️ **Tag-Based Filtering** - Filter by 8 available video categories├── config/
 
+---
+
 - 📊 **Interactive Dashboard** - Real-time scraping with beautiful UI│   └── config.js            # Configuration settings
+
+## 📋 Table of Contents
 
 - 🎬 **Video Detail Pages** - Full video player with metadata├── models/
 
-- 💾 **Multiple Export Formats** - JSON and CSV output support│   ├── VideoModel.js        # Data layer - Video scraping logic
+- [Installation](#-installation)
 
-- 🔄 **Rate Limiting** - Prevents server overload with smart delays│   └── StorageModel.js      # Data layer - File operations
+- [Usage](#-usage)- 💾 **Multiple Export Formats** - JSON and CSV output support│   ├── VideoModel.js        # Data layer - Video scraping logic
 
-- 🏗️ **MVC Architecture** - Clean, maintainable code structure├── views/
+- [API Documentation](#-api-documentation)
 
-- 📡 **RESTful API** - Well-documented API endpoints│   ├── home.html            # Landing page
+- [Project Structure](#-project-structure)- 🔄 **Rate Limiting** - Prevents server overload with smart delays│   └── StorageModel.js      # Data layer - File operations
+
+- [Configuration](#%EF%B8%8F-configuration)
+
+- [Technologies](#%EF%B8%8F-technologies)- 🏗️ **MVC Architecture** - Clean, maintainable code structure├── views/
+
+- [Available Tags](#-available-tags)
+
+- [Deployment](#-deployment)- 📡 **RESTful API** - Well-documented API endpoints│   ├── home.html            # Landing page
+
+- [Contributing](#-contributing)
 
 - ⚡ **Background Processing** - Non-blocking scraping operations│   └── dashboard.html       # Dashboard UI
 
+---
+
 - 🎨 **Responsive Design** - Mobile-friendly interface├── controllers/
+
+## 🚀 Installation
 
 │   └── VideoController.js   # Business logic layer
 
+### Prerequisites
+
 ## 📋 Table of Contents├── routes/
 
-│   └── api.js               # API route definitions
+- **Node.js** v14 or higher
+
+- **npm** or **yarn**│   └── api.js               # API route definitions
+
+- Internet connection
 
 - [Installation](#installation)├── data/                    # Output directory
 
+### Steps
+
 - [Usage](#usage)│   ├── buumal_videos.json   # Scraped data (JSON)
 
-- [API Documentation](#api-documentation)│   └── buumal_videos.csv    # Scraped data (CSV)
+1. **Clone the repository**
 
-- [Project Structure](#project-structure)└── public/                  # Static assets
+```bash- [API Documentation](#api-documentation)│   └── buumal_videos.csv    # Scraped data (CSV)
 
-- [Configuration](#configuration)```
+git clone https://github.com/Thawtarlamin/BUU-MAL.git
 
-- [Technologies](#technologies)
-
-- [Available Tags](#available-tags)### 📦 Model Layer
-
-- [Export Formats](#export-formats)- **VideoModel.js** - Handles web scraping, HTTP requests, HTML parsing
-
-- [Contributing](#contributing)- **StorageModel.js** - Manages file operations, data persistence, statistics
-
-- [License](#license)
-
-### 🎨 View Layer
-
-## 🚀 Installation- **home.html** - API documentation and landing page
-
-- **dashboard.html** - Interactive web dashboard for scraping
-
-### Prerequisites
-
-### 🎮 Controller Layer
-
-- Node.js (v14 or higher)- **VideoController.js** - Orchestrates models, handles business logic, processes requests
-
-- npm or yarn
-
-### 🛣️ Routes Layer
-
-### Steps- **api.js** - Defines API endpoints and maps to controller methods
-
-
-
-1. **Clone the repository**### ⚙️ Config Layer
-
-   ```bash- **config.js** - Centralized configuration (server, scraper settings, tags)
-
-   git clone https://github.com/yourusername/buumal-scraper.git
-
-   cd buumal-scraper---
-
-   ```
-
-## ✨ Features
-
-2. **Install dependencies**
-
-   ```bash- ✅ **MVC Architecture** - Clean separation of concerns
-
-   npm install- ✅ **RESTful API** - 6 well-documented endpoints
-
-   ```- ✅ **Web Dashboard** - Beautiful UI for easy scraping
-
-- ✅ **Smart Scraping** - Rate limiting, error handling, retries
-
-3. **Start the application**- ✅ **Tag Filtering** - Filter by 8 different categories
-
-   ```bash- ✅ **Dual Export** - Automatic JSON & CSV export
-
-   npm start- ✅ **Analytics** - Detailed statistics and insights
-
-   ```- ✅ **Pagination** - Efficient data retrieval
-
-   or- ✅ **CORS Enabled** - Cross-origin request support
-
-   ```bash
-
-   node app.js---
-
-   ```
-
-## 🚀 Quick Start
-
-4. **Access the application**
-
-   - Home Page: http://localhost:3000### Installation
-
-   - Dashboard: http://localhost:3000/dashboard.html```bash
-
-   - API: http://localhost:3000/api/videos# Dependencies already installed
-
-npm install
-
-## 💻 Usage```
-
-
-
-### Web Dashboard### Start the Server
-
-```bash
-
-1. Open your browser and navigate to `http://localhost:3000/dashboard.html`npm start
-
-2. Configure scraping parameters:```
-
-   - **Start Page**: Starting page number (default: 1)
-
-   - **End Page**: Ending page number (default: 3)Visit: **http://localhost:3000**
-
-   - **Tag Filter**: Select specific category or "All Tags"
-
-   - **Include Details**: ✓ Enable for full video details (videoSrc, tags, description)---
-
-3. Click **"🚀 Start Scraping"**
-
-4. View results in real-time## 📚 API Documentation
-
-5. Click **"🎬 View Details"** on any video to watch with full metadata
-
-### Base URL
-
-### CLI Usage```
-
-http://localhost:3000/api
-
-You can also use the API directly via curl or any HTTP client:```
-
-
-
-**Scrape a single page:**### Endpoints
-
-```bash
-
-curl http://localhost:3000/api/scrape?page=1#### 1. Scrape Single Page
-
-``````http
-
-GET /api/scrape?page=1&tag=myanmar
-
-**Scrape multiple pages with tag filter:**```
-
-```bash
-
-curl http://localhost:3000/api/scrape/multiple?startPage=1&endPage=3&tag=myanmar**Query Parameters:**
-
-```- `page` (optional) - Page number (default: 1)
-
-- `tag` (optional) - Category filter
-
-**Get full video details:**
-
-```bash**Response:**
-
-curl http://localhost:3000/api/scrape?page=1&details=true```json
-
-```{
-
-  "success": true,
-
-**Get specific video details:**  "data": {
-
-```bash    "videos": [...],
-
-curl http://localhost:3000/api/scrape/video/690ACE0F    "totalVideos": "54314",
-
-```    "page": 1,
-
-    "count": 20
-
-## 📡 API Documentation  },
-
-  "message": "Successfully scraped 20 videos from page 1"
-
-### Base URL}
-
-``````
-
-http://localhost:3000/api
-
-```#### 2. Scrape Multiple Pages
-
-```http
-
-### EndpointsGET /api/scrape/multiple?startPage=1&endPage=3&tag=myanmar
+cd BUU-MAL- [Project Structure](#project-structure)└── public/                  # Static assets
 
 ```
 
-#### 1. Scrape Single Page
+- [Configuration](#configuration)```
 
-```http**Query Parameters:**
+2. **Install dependencies**
 
-GET /api/scrape?page=1&tag=myanmar&details=true- `startPage` (optional) - Start page (default: 1)
+```bash- [Technologies](#technologies)
 
-```- `endPage` (optional) - End page (default: 3)
+npm install
 
-- `tag` (optional) - Category filter
+```- [Available Tags](#available-tags)### 📦 Model Layer
 
-**Query Parameters:**- **Max:** 10 pages per request
 
-- `page` (required): Page number to scrape
 
-- `tag` (optional): Filter by tag (drhmonegyi, myanmar, drkogyi, mamagyi, kosargyi, samusar, mmporns, mmhdhub)**Response:**
+3. **Start the application**- [Export Formats](#export-formats)- **VideoModel.js** - Handles web scraping, HTTP requests, HTML parsing
 
-- `details` (optional): Set to `true` for full video details```json
+```bash
+
+npm start- [Contributing](#contributing)- **StorageModel.js** - Manages file operations, data persistence, statistics
+
+```
+
+- [License](#license)
+
+4. **Access the application**
+
+- 🏠 Home Page: http://localhost:3000### 🎨 View Layer
+
+- 📊 Dashboard: http://localhost:3000/dashboard.html
+
+- 📚 API: http://localhost:3000/api/videos## 🚀 Installation- **home.html** - API documentation and landing page
+
+
+
+---- **dashboard.html** - Interactive web dashboard for scraping
+
+
+
+## 💻 Usage### Prerequisites
+
+
+
+### Web Dashboard### 🎮 Controller Layer
+
+
+
+1. Navigate to `http://localhost:3000/dashboard.html`- Node.js (v14 or higher)- **VideoController.js** - Orchestrates models, handles business logic, processes requests
+
+2. Configure scraping parameters:
+
+   - **Start Page**: Starting page number (default: 1)- npm or yarn
+
+   - **End Page**: Ending page number (default: 3)
+
+   - **Tag Filter**: Select specific category or "All Tags"### 🛣️ Routes Layer
+
+   - **Include Details**: ✓ Enable for full video details (slower but complete)
+
+3. Click **"🚀 Start Scraping"**### Steps- **api.js** - Defines API endpoints and maps to controller methods
+
+4. View scraped videos in real-time
+
+5. Click **"🎬 View Details"** to watch videos with full metadata
+
+
+
+### API Usage Examples1. **Clone the repository**### ⚙️ Config Layer
+
+
+
+**Scrape a single page:**   ```bash- **config.js** - Centralized configuration (server, scraper settings, tags)
+
+```bash
+
+curl http://localhost:3000/api/scrape?page=1   git clone https://github.com/yourusername/buumal-scraper.git
+
+```
+
+   cd buumal-scraper---
+
+**Scrape with tag filter:**
+
+```bash   ```
+
+curl http://localhost:3000/api/scrape?page=1&tag=myanmar
+
+```## ✨ Features
+
+
+
+**Scrape with full details:**2. **Install dependencies**
+
+```bash
+
+curl http://localhost:3000/api/scrape?page=1&details=true   ```bash- ✅ **MVC Architecture** - Clean separation of concerns
+
+```
+
+   npm install- ✅ **RESTful API** - 6 well-documented endpoints
+
+**Scrape multiple pages:**
+
+```bash   ```- ✅ **Web Dashboard** - Beautiful UI for easy scraping
+
+curl http://localhost:3000/api/scrape/multiple?startPage=1&endPage=3&tag=myanmar
+
+```- ✅ **Smart Scraping** - Rate limiting, error handling, retries
+
+
+
+**Get specific video details:**3. **Start the application**- ✅ **Tag Filtering** - Filter by 8 different categories
+
+```bash
+
+curl http://localhost:3000/api/scrape/video/690ACE0F   ```bash- ✅ **Dual Export** - Automatic JSON & CSV export
+
+```
+
+   npm start- ✅ **Analytics** - Detailed statistics and insights
+
+---
+
+   ```- ✅ **Pagination** - Efficient data retrieval
+
+## 📡 API Documentation
+
+   or- ✅ **CORS Enabled** - Cross-origin request support
+
+### Base URL
+
+```   ```bash
+
+http://localhost:3000/api
+
+```   node app.js---
+
+
+
+### Endpoints   ```
+
+
+
+#### 1️⃣ Scrape Single Page## 🚀 Quick Start
+
+```http
+
+GET /api/scrape?page=<number>&tag=<tag>&details=<boolean>4. **Access the application**
+
+```
+
+   - Home Page: http://localhost:3000### Installation
+
+**Query Parameters:**
+
+| Parameter | Type | Required | Description |   - Dashboard: http://localhost:3000/dashboard.html```bash
+
+|-----------|------|----------|-------------|
+
+| `page` | number | ✅ Yes | Page number to scrape |   - API: http://localhost:3000/api/videos# Dependencies already installed
+
+| `tag` | string | ❌ No | Filter by category |
+
+| `details` | boolean | ❌ No | Include full video details |npm install
+
+
+
+**Response:**## 💻 Usage```
+
+```json
 
 {
 
-**Response:**  "success": true,
+  "success": true,
 
-```json  "data": {
+  "data": {### Web Dashboard### Start the Server
 
-{    "videos": [...],
+    "videos": [...],
 
-  "success": true,    "count": 60,
+    "count": 20,```bash
 
-  "data": {    "pages": "1-3"
+    "page": 1
 
-    "videos": [...],  },
-
-    "count": 20,  "message": "Successfully scraped 60 videos from pages 1 to 3"
-
-    "page": 1}
-
-  }```
+  }1. Open your browser and navigate to `http://localhost:3000/dashboard.html`npm start
 
 }
 
-```#### 3. Get Video Details
+```2. Configure scraping parameters:```
+
+
+
+#### 2️⃣ Scrape Multiple Pages   - **Start Page**: Starting page number (default: 1)
 
 ```http
 
-#### 2. Scrape Multiple PagesGET /api/scrape/video/:id
+GET /api/scrape/multiple?startPage=<number>&endPage=<number>&tag=<tag>&details=<boolean>   - **End Page**: Ending page number (default: 3)Visit: **http://localhost:3000**
 
-```http```
+```
 
-GET /api/scrape/multiple?startPage=1&endPage=3&tag=myanmar&details=true
+   - **Tag Filter**: Select specific category or "All Tags"
 
-```**Example:**
+**Query Parameters:**
 
-```http
+| Parameter | Type | Required | Description |   - **Include Details**: ✓ Enable for full video details (videoSrc, tags, description)---
 
-**Query Parameters:**GET /api/scrape/video/690ACE0F
+|-----------|------|----------|-------------|
 
-- `startPage` (required): Starting page number```
+| `startPage` | number | ✅ Yes | Starting page number |3. Click **"🚀 Start Scraping"**
 
-- `endPage` (required): Ending page number
+| `endPage` | number | ✅ Yes | Ending page number |
 
-- `tag` (optional): Filter by tag**Response:**
+| `tag` | string | ❌ No | Filter by category |4. View results in real-time## 📚 API Documentation
 
-- `details` (optional): Set to `true` for full video details```json
+| `details` | boolean | ❌ No | Include full video details |
 
-{
-
-**Response:**  "success": true,
-
-```json  "data": {
-
-{    "url": "https://www.buumal.com/video/690ACE0F",
-
-  "success": true,    "title": "Video Title",
-
-  "data": {    "embedUrl": "...",
-
-    "videos": [...],    "videoSrc": "..."
-
-    "count": 60,  }
-
-    "pages": "1-3"}
-
-  }```
-
-}
-
-```#### 4. Get All Saved Videos
-
-```http
-
-#### 3. Get Video DetailsGET /api/videos?page=1&limit=20
-
-```http```
-
-GET /api/scrape/video/:id
-
-```**Query Parameters:**
-
-- `page` (optional) - Page number (default: 1)
-
-**URL Parameters:**- `limit` (optional) - Items per page (default: 20, max: 100)
-
-- `id` (required): Video ID
+5. Click **"🎬 View Details"** on any video to watch with full metadata
 
 **Response:**
 
-**Response:**```json
+```json### Base URL
 
-```json{
+{
 
-{  "success": true,
+  "success": true,### CLI Usage```
 
-  "success": true,  "data": {
+  "data": {
 
-  "data": {    "videos": [...],
+    "videos": [...],http://localhost:3000/api
 
-    "videoId": "690ACE0F",    "pagination": {
+    "count": 60,
 
-    "title": "Video Title",      "currentPage": 1,
+    "pages": "1-3"You can also use the API directly via curl or any HTTP client:```
 
-    "videoSrc": "https://...",      "totalVideos": 60,
-
-    "thumbnail": "https://...",      "totalPages": 3,
-
-    "tags": ["tag1", "tag2"],      "limit": 20,
-
-    "description": "..."      "hasNextPage": true,
-
-  }      "hasPrevPage": false
-
-}    }
-
-```  }
+  }
 
 }
 
-#### 4. Get All Saved Videos```
+```
 
-```http
+**Scrape a single page:**### Endpoints
 
-GET /api/videos?page=1&limit=20#### 5. Get Available Tags
+#### 3️⃣ Get Video Details
 
-``````http
+```http```bash
 
-GET /api/tags
+GET /api/scrape/video/:id
 
-**Query Parameters:**```
+```curl http://localhost:3000/api/scrape?page=1#### 1. Scrape Single Page
 
-- `page` (optional): Page number for pagination (default: 1)
 
-- `limit` (optional): Items per page (default: 20)**Response:**
+
+**Response:**``````http
 
 ```json
 
-**Response:**{
+{GET /api/scrape?page=1&tag=myanmar
 
-```json  "success": true,
+  "success": true,
 
-{  "data": {
+  "data": {**Scrape multiple pages with tag filter:**```
 
-  "success": true,    "tags": [
+    "videoId": "690ACE0F",
 
-  "data": {      "drhmonegyi",
+    "title": "Video Title",```bash
 
-    "videos": [...],      "myanmar",
+    "videoSrc": "https://...",
 
-    "pagination": {      "drkogyi",
+    "thumbnail": "https://...",curl http://localhost:3000/api/scrape/multiple?startPage=1&endPage=3&tag=myanmar**Query Parameters:**
 
-      "currentPage": 1,      "mamagyi",
+    "tags": ["tag1", "tag2"],
 
-      "totalPages": 5,      "kosargyi",
+    "description": "..."```- `page` (optional) - Page number (default: 1)
 
-      "totalVideos": 100,      "samusar",
+  }
 
-      "limit": 20      "mmporns",
+}- `tag` (optional) - Category filter
 
-    }      "mmhdhub"
+```
 
-  }    ],
+**Get full video details:**
 
-}    "count": 8
+#### 4️⃣ Get All Saved Videos
 
-```  }
+```http```bash**Response:**
 
-}
+GET /api/videos?page=<number>&limit=<number>
 
-#### 5. Get Available Tags```
+```curl http://localhost:3000/api/scrape?page=1&details=true```json
+
+
+
+**Query Parameters:**```{
+
+| Parameter | Type | Default | Description |
+
+|-----------|------|---------|-------------|  "success": true,
+
+| `page` | number | 1 | Page number for pagination |
+
+| `limit` | number | 20 | Items per page |**Get specific video details:**  "data": {
+
+
+
+#### 5️⃣ Get Available Tags```bash    "videos": [...],
 
 ```http
 
-GET /api/tags#### 6. Get Statistics
+GET /api/tagscurl http://localhost:3000/api/scrape/video/690ACE0F    "totalVideos": "54314",
 
-``````http
+```
+
+```    "page": 1,
+
+**Response:**
+
+```json    "count": 20
+
+{
+
+  "success": true,## 📡 API Documentation  },
+
+  "tags": ["drhmonegyi", "myanmar", "drkogyi", ...]
+
+}  "message": "Successfully scraped 20 videos from page 1"
+
+```
+
+### Base URL}
+
+#### 6️⃣ Get Statistics
+
+```http``````
 
 GET /api/stats
 
-**Response:**```
+```http://localhost:3000/api
+
+
+
+**Response:**```#### 2. Scrape Multiple Pages
 
 ```json
 
-{**Response:**
+{```http
 
-  "success": true,```json
+  "success": true,
 
-  "tags": ["drhmonegyi", "myanmar", "drkogyi", "mamagyi", "kosargyi", "samusar", "mmporns", "mmhdhub"]{
+  "stats": {### EndpointsGET /api/scrape/multiple?startPage=1&endPage=3&tag=myanmar
 
-}  "success": true,
-
-```  "data": {
-
-    "totalVideos": 60,
-
-#### 6. Get Statistics    "videosByTag": {
-
-```http      "all": 60
-
-GET /api/stats    },
-
-```    "videosByPage": {
-
-      "1": 20,
-
-**Response:**      "2": 20,
-
-```json      "3": 20
-
-{    },
-
-  "success": true,    "latestScrape": "6 hours ago"
-
-  "stats": {  }
-
-    "totalVideos": 150,}
+    "totalVideos": 150,
 
     "availableTags": 8,```
 
     "lastUpdated": "2025-11-05T..."
 
-  }---
+  }#### 1. Scrape Single Page
 
 }
 
-```## 💻 Programmatic Usage
+``````http**Query Parameters:**
 
 
 
-## 📁 Project Structure### Using Models Directly
+---GET /api/scrape?page=1&tag=myanmar&details=true- `startPage` (optional) - Start page (default: 1)
 
 
 
-``````javascript
+## 📁 Project Structure```- `endPage` (optional) - End page (default: 3)
 
-buumal-scraper/const VideoModel = require('./models/VideoModel');
 
-├── app.js                      # Main application entry pointconst StorageModel = require('./models/StorageModel');
 
-├── package.json                # Project dependencies
+```- `tag` (optional) - Category filter
 
-├── README.md                   # This fileasync function example() {
+BUU-MAL/
 
-│    const videoModel = new VideoModel();
+├── 📄 app.js                   # Main application entry point**Query Parameters:**- **Max:** 10 pages per request
 
-├── config/    const storageModel = new StorageModel();
+├── 📄 package.json             # Dependencies and scripts
 
-│   └── config.js              # Centralized configuration    
+├── 📄 README.md                # This file- `page` (required): Page number to scrape
 
-│    // Scrape videos
+├── 📄 .gitignore               # Git ignore rules
 
-├── models/    const result = await videoModel.scrapeVideos(1, 'myanmar');
+│- `tag` (optional): Filter by tag (drhmonegyi, myanmar, drkogyi, mamagyi, kosargyi, samusar, mmporns, mmhdhub)**Response:**
 
-│   ├── VideoModel.js          # Video scraping logic (Data Layer)    
+├── 📁 config/
 
-│   └── StorageModel.js        # Data storage operations (Data Layer)    // Save to files
+│   └── config.js               # Centralized configuration- `details` (optional): Set to `true` for full video details```json
 
-│    storageModel.saveToJson(result.videos);
+│
 
-├── controllers/    storageModel.saveToCsv(result.videos);
+├── 📁 models/                  # Data Layer (MVC){
 
-│   └── VideoController.js     # Business logic layer    
+│   ├── VideoModel.js           # Video scraping logic
 
-│    // Load from files
+│   └── StorageModel.js         # Data storage operations**Response:**  "success": true,
 
-├── routes/    const loaded = storageModel.loadFromJson();
+│
 
-│   └── api.js                 # API route definitions    
+├── 📁 controllers/             # Business Logic Layer (MVC)```json  "data": {
 
-│    // Get statistics
+│   └── VideoController.js      # Request handling
 
-├── views/    const stats = storageModel.getStatistics();
+│{    "videos": [...],
 
-│   ├── home.html              # Landing page with API docs}
+├── 📁 routes/                  # Routes Layer
 
-│   ├── dashboard.html         # Interactive scraping dashboard```
+│   └── api.js                  # API endpoint definitions  "success": true,    "count": 60,
 
-│   └── video-detail.html      # Video player with full details
+│
 
-│### Using Controller
+├── 📁 views/                   # Presentation Layer (MVC)  "data": {    "pages": "1-3"
 
-└── data/
+│   ├── home.html               # Landing page
 
-    ├── buumal_videos.json     # JSON export```javascript
+│   ├── dashboard.html          # Interactive dashboard    "videos": [...],  },
 
-    └── buumal_videos.csv      # CSV exportconst VideoController = require('./controllers/VideoController');
+│   └── video-detail.html       # Video player page
 
-```
+│    "count": 20,  "message": "Successfully scraped 60 videos from pages 1 to 3"
 
-const controller = new VideoController();
+└── 📁 data/                    # Output Directory
 
-### MVC Architecture
+    ├── buumal_videos.json      # JSON export    "page": 1}
 
-// Controller methods automatically handle request/response
+    └── buumal_videos.csv       # CSV export
 
-This project follows the **Model-View-Controller** design pattern:// Used by Express routes
+```  }```
 
-```
 
-#### 📦 Model Layer
 
-- **VideoModel.js** - Handles web scraping, HTTP requests, HTML parsing with Cheerio---
+### MVC Architecture}
 
-- **StorageModel.js** - Manages file operations, data persistence, pagination, statistics
 
-## 🎨 Web Dashboard
 
-#### 🎨 View Layer
+#### 📦 Model Layer```#### 3. Get Video Details
 
-- **home.html** - API documentation and landing pageAccess the interactive dashboard at: **http://localhost:3000/views/dashboard.html**
+- **VideoModel.js** - Handles web scraping, HTTP requests, HTML parsing
 
-- **dashboard.html** - Interactive web dashboard for scraping
+- **StorageModel.js** - Manages file I/O, data persistence, pagination```http
 
-- **video-detail.html** - Video player page with metadata**Features:**
 
-- Real-time scraping
 
-#### 🎮 Controller Layer- Visual statistics
+#### 🎨 View Layer#### 2. Scrape Multiple PagesGET /api/scrape/video/:id
 
-- **VideoController.js** - Orchestrates models, handles business logic, processes HTTP requests- Tag filtering
+- **home.html** - API documentation page
 
-- Video grid display
+- **dashboard.html** - Interactive scraping interface```http```
 
-#### 🛣️ Routes Layer- Export options
+- **video-detail.html** - Video player with full details
 
-- **api.js** - Defines API endpoints and maps to controller methods
+GET /api/scrape/multiple?startPage=1&endPage=3&tag=myanmar&details=true
 
----
+#### 🎮 Controller Layer
+
+- **VideoController.js** - Orchestrates models, processes requests```**Example:**
+
+
+
+#### 🛣️ Routes Layer```http
+
+- **api.js** - Maps URLs to controller methods
+
+**Query Parameters:**GET /api/scrape/video/690ACE0F
 
 #### ⚙️ Config Layer
 
-- **config.js** - Centralized configuration (server, scraper settings, tags)## ⚙️ Configuration
+- **config.js** - Centralized settings (server, scraper, tags)- `startPage` (required): Starting page number```
 
 
 
-## ⚙️ ConfigurationEdit `config/config.js` to customize:
+---- `endPage` (required): Ending page number
 
+
+
+## ⚙️ Configuration- `tag` (optional): Filter by tag**Response:**
+
+
+
+Edit `config/config.js` to customize:- `details` (optional): Set to `true` for full video details```json
+
+
+
+```javascript{
+
+module.exports = {
+
+    server: {**Response:**  "success": true,
+
+        port: process.env.PORT || 3000
+
+    },```json  "data": {
+
+    scraper: {
+
+        baseUrl: 'https://www.buumal.com',{    "url": "https://www.buumal.com/video/690ACE0F",
+
+        timeout: 15000,                  // 15 seconds
+
+        delayBetweenRequests: 3000,      // 3 seconds  "success": true,    "title": "Video Title",
+
+        userAgent: 'Mozilla/5.0...'
+
+    },  "data": {    "embedUrl": "...",
+
+    tags: [
+
+        'drhmonegyi', 'myanmar', 'drkogyi', 'mamagyi',    "videos": [...],    "videoSrc": "..."
+
+        'kosargyi', 'samusar', 'mmporns', 'mmhdhub'
+
+    ]    "count": 60,  }
+
+};
+
+```    "pages": "1-3"}
+
+
+
+### Key Settings  }```
+
+
+
+| Setting | Default | Description |}
+
+|---------|---------|-------------|
+
+| `timeout` | 15000ms | HTTP request timeout |```#### 4. Get All Saved Videos
+
+| `delayBetweenRequests` | 3000ms | Delay between page requests |
+
+| `maxRetries` | 3 | Number of retry attempts |```http
+
+
+
+---#### 3. Get Video DetailsGET /api/videos?page=1&limit=20
+
+
+
+## 🛠️ Technologies```http```
+
+
+
+### BackendGET /api/scrape/video/:id
+
+- **Node.js** - JavaScript runtime
+
+- **Express.js v5.1.0** - Web framework```**Query Parameters:**
+
+- **Axios v1.13.2** - HTTP client
+
+- **Cheerio v1.1.2** - HTML parser- `page` (optional) - Page number (default: 1)
+
+
+
+### Frontend**URL Parameters:**- `limit` (optional) - Items per page (default: 20, max: 100)
+
+- **HTML5** - Markup
+
+- **CSS3** - Styling with gradients- `id` (required): Video ID
+
+- **Vanilla JavaScript** - No frameworks
+
+- **Fetch API** - Async requests**Response:**
+
+
+
+### Architecture**Response:**```json
+
+- **MVC Pattern** - Model-View-Controller
+
+- **RESTful API** - Standard HTTP methods```json{
+
+- **Modular Design** - Separation of concerns
+
+{  "success": true,
+
+---
+
+  "success": true,  "data": {
+
+## 🎯 Available Tags
+
+  "data": {    "videos": [...],
+
+| Tag | Category |
+
+|-----|----------|    "videoId": "690ACE0F",    "pagination": {
+
+| `drhmonegyi` | Dr. Hmon Egyi |
+
+| `myanmar` | Myanmar |    "title": "Video Title",      "currentPage": 1,
+
+| `drkogyi` | Dr. Ko Gyi |
+
+| `mamagyi` | Mama Gyi |    "videoSrc": "https://...",      "totalVideos": 60,
+
+| `kosargyi` | Ko Sar Gyi |
+
+| `samusar` | Sam U Sar |    "thumbnail": "https://...",      "totalPages": 3,
+
+| `mmporns` | MM Porns |
+
+| `mmhdhub` | MM HD Hub |    "tags": ["tag1", "tag2"],      "limit": 20,
+
+
+
+---    "description": "..."      "hasNextPage": true,
+
+
+
+## 📊 Export Formats  }      "hasPrevPage": false
+
+
+
+### JSON Export (`data/buumal_videos.json`)}    }
+
+```json
+
+[```  }
+
+  {
+
+    "success": true,}
+
+    "videoId": "690ACE0F",
+
+    "title": "Video Title",#### 4. Get All Saved Videos```
+
+    "videoUrl": "https://www.buumal.com/video/690ACE0F",
+
+    "videoSrc": "https://...",```http
+
+    "thumbnail": "https://...",
+
+    "tags": ["myanmar", "drkogyi"],GET /api/videos?page=1&limit=20#### 5. Get Available Tags
+
+    "description": "Description...",
+
+    "timeAgo": "3 hours ago",``````http
+
+    "page": 1
+
+  }GET /api/tags
+
+]
+
+```**Query Parameters:**```
+
+
+
+### CSV Export (`data/buumal_videos.csv`)- `page` (optional): Page number for pagination (default: 1)
+
+```csv
+
+videoId,title,videoUrl,thumbnailUrl,timeAgo,page,tag- `limit` (optional): Items per page (default: 20)**Response:**
+
+690ACE0F,"Video Title","https://...","https://...","3 hours ago",1,"myanmar"
+
+``````json
+
+
+
+---**Response:**{
+
+
+
+## 🚀 Deployment```json  "success": true,
+
+
+
+### Deploy to Render.com{  "data": {
+
+
+
+1. **Create Web Service**  "success": true,    "tags": [
+
+   - Go to [Render Dashboard](https://dashboard.render.com/)
+
+   - Click "New +" → "Web Service"  "data": {      "drhmonegyi",
+
+   - Connect your GitHub repository: `Thawtarlamin/BUU-MAL`
+
+    "videos": [...],      "myanmar",
+
+2. **Configure Service**
+
+   ```    "pagination": {      "drkogyi",
+
+   Name: buumal-scraper
+
+   Region: Singapore or Oregon      "currentPage": 1,      "mamagyi",
+
+   Branch: main
+
+   Runtime: Node      "totalPages": 5,      "kosargyi",
+
+   Build Command: npm install
+
+   Start Command: node app.js      "totalVideos": 100,      "samusar",
+
+   Instance Type: Free
+
+   ```      "limit": 20      "mmporns",
+
+
+
+3. **Environment Variables (Optional)**    }      "mmhdhub"
+
+   ```
+
+   PORT=3000  }    ],
+
+   NODE_ENV=production
+
+   ```}    "count": 8
+
+
+
+4. **Deploy**```  }
+
+   - Click "Create Web Service"
+
+   - Wait for deployment to complete}
+
+   - Access your app at the provided URL
+
+#### 5. Get Available Tags```
+
+### Deploy to Other Platforms
+
+```http
+
+**Heroku:**
+
+```bashGET /api/tags#### 6. Get Statistics
+
+heroku create buumal-scraper
+
+git push heroku main``````http
+
+```
+
+GET /api/stats
+
+**Railway:**
+
+```bash**Response:**```
+
+railway login
+
+railway init```json
+
+railway up
+
+```{**Response:**
+
+
+
+**DigitalOcean App Platform:**  "success": true,```json
+
+- Connect GitHub repository
+
+- Auto-detect Node.js  "tags": ["drhmonegyi", "myanmar", "drkogyi", "mamagyi", "kosargyi", "samusar", "mmporns", "mmhdhub"]{
+
+- Deploy
+
+}  "success": true,
+
+---
+
+```  "data": {
+
+## ⚠️ Rate Limiting & Best Practices
+
+    "totalVideos": 60,
+
+### Built-in Protection
+
+#### 6. Get Statistics    "videosByTag": {
+
+- ✅ **500ms delay** between video detail requests
+
+- ✅ **3 second delay** between page requests```http      "all": 60
+
+- ✅ **Retry logic** with exponential backoff (3 attempts)
+
+- ✅ **Realistic headers** to mimic browser behaviorGET /api/stats    },
+
+- ✅ **15 second timeout** for slow connections
+
+```    "videosByPage": {
+
+### Best Practices
+
+      "1": 20,
+
+1. ✅ Use rate limiting to avoid overwhelming servers
+
+2. ✅ Enable "Include Details" only when necessary**Response:**      "2": 20,
+
+3. ✅ Export data regularly to prevent loss
+
+4. ✅ Check `data/` folder for saved results```json      "3": 20
+
+5. ✅ Respect target website's terms of service
+
+6. ✅ Monitor logs for errors{    },
+
+
+
+---  "success": true,    "latestScrape": "6 hours ago"
+
+
+
+## 🐛 Troubleshooting  "stats": {  }
+
+
+
+### Common Issues    "totalVideos": 150,}
+
+
+
+**403 Forbidden Error:**    "availableTags": 8,```
+
+- Website may be blocking datacenter IPs
+
+- Solution: Use residential proxy or VPS    "lastUpdated": "2025-11-05T..."
+
+- Already implemented: Retry logic with better headers
+
+  }---
+
+**Timeout Errors:**
+
+- Increase timeout in `config.js`}
+
+- Check internet connection
+
+- Try fewer pages at once```## 💻 Programmatic Usage
+
+
+
+**Empty Results:**
+
+- Check if website structure changed
+
+- Verify selectors in `VideoModel.js`## 📁 Project Structure### Using Models Directly
+
+- Check console logs for errors
+
+
+
+**Data Not Saving:**
+
+- Ensure `data/` directory exists``````javascript
+
+- Check file permissions
+
+- Verify disk spacebuumal-scraper/const VideoModel = require('./models/VideoModel');
+
+
+
+---├── app.js                      # Main application entry pointconst StorageModel = require('./models/StorageModel');
+
+
+
+## 🤝 Contributing├── package.json                # Project dependencies
+
+
+
+Contributions are welcome! Please follow these steps:├── README.md                   # This fileasync function example() {
+
+
+
+1. Fork the repository│    const videoModel = new VideoModel();
+
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)├── config/    const storageModel = new StorageModel();
+
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+
+5. Open a Pull Request│   └── config.js              # Centralized configuration    
+
+
+
+### Coding Standards│    // Scrape videos
+
+- Follow existing MVC structure
+
+- Add comments for complex logic├── models/    const result = await videoModel.scrapeVideos(1, 'myanmar');
+
+- Update README for new features
+
+- Test thoroughly before submitting│   ├── VideoModel.js          # Video scraping logic (Data Layer)    
+
+
+
+---│   └── StorageModel.js        # Data storage operations (Data Layer)    // Save to files
+
+
+
+## 📋 Roadmap│    storageModel.saveToJson(result.videos);
+
+
+
+- [ ] Add pagination to dashboard results├── controllers/    storageModel.saveToCsv(result.videos);
+
+- [ ] Implement search functionality
+
+- [ ] Add video download manager│   └── VideoController.js     # Business logic layer    
+
+- [ ] Create video playlists
+
+- [ ] Export to XML and Excel formats│    // Load from files
+
+- [ ] Implement Redis caching
+
+- [ ] Add user authentication├── routes/    const loaded = storageModel.loadFromJson();
+
+- [ ] Mobile app development
+
+- [ ] Video quality selection│   └── api.js                 # API route definitions    
+
+- [ ] Batch download feature
+
+│    // Get statistics
+
+---
+
+├── views/    const stats = storageModel.getStatistics();
+
+## 📄 License
+
+│   ├── home.html              # Landing page with API docs}
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+│   ├── dashboard.html         # Interactive scraping dashboard```
+
+---
+
+│   └── video-detail.html      # Video player with full details
+
+## 👤 Author
+
+│### Using Controller
+
+**Thawtar Lamin**
+
+- GitHub: [@Thawtarlamin](https://github.com/Thawtarlamin)└── data/
+
+- Repository: [BUU-MAL](https://github.com/Thawtarlamin/BUU-MAL)
+
+    ├── buumal_videos.json     # JSON export```javascript
+
+---
+
+    └── buumal_videos.csv      # CSV exportconst VideoController = require('./controllers/VideoController');
+
+## 🙏 Acknowledgments
+
+```
+
+- [Cheerio](https://cheerio.js.org/) - Fast HTML parsing
+
+- [Express.js](https://expressjs.com/) - Web frameworkconst controller = new VideoController();
+
+- [Axios](https://axios-http.com/) - HTTP client
+
+- [Node.js](https://nodejs.org/) - JavaScript runtime### MVC Architecture
+
+
+
+---// Controller methods automatically handle request/response
+
+
+
+## ⚖️ DisclaimerThis project follows the **Model-View-Controller** design pattern:// Used by Express routes
+
+
+
+This tool is for **educational purposes only**. Please respect:```
+
+- Website's Terms of Service
+
+- robots.txt directives#### 📦 Model Layer
+
+- Rate limiting policies
+
+- Copyright and intellectual property rights- **VideoModel.js** - Handles web scraping, HTTP requests, HTML parsing with Cheerio---
+
+
+
+The authors are not responsible for any misuse of this software.- **StorageModel.js** - Manages file operations, data persistence, pagination, statistics
+
+
+
+---## 🎨 Web Dashboard
+
+
+
+## 📞 Support#### 🎨 View Layer
+
+
+
+Found a bug or have a question?- **home.html** - API documentation and landing pageAccess the interactive dashboard at: **http://localhost:3000/views/dashboard.html**
+
+
+
+1. Check [Issues](https://github.com/Thawtarlamin/BUU-MAL/issues)- **dashboard.html** - Interactive web dashboard for scraping
+
+2. Create a new issue with details
+
+3. Contact via GitHub- **video-detail.html** - Video player page with metadata**Features:**
+
+
+
+---- Real-time scraping
+
+
+
+## 🌟 Show Your Support#### 🎮 Controller Layer- Visual statistics
+
+
+
+If you find this project helpful:- **VideoController.js** - Orchestrates models, handles business logic, processes HTTP requests- Tag filtering
+
+
+
+- ⭐ Star the repository- Video grid display
+
+- 🍴 Fork for your own use
+
+- 📢 Share with others#### 🛣️ Routes Layer- Export options
+
+- 💬 Provide feedback
+
+- 🐛 Report bugs- **api.js** - Defines API endpoints and maps to controller methods
+
+
+
+------
+
+
+
+<div align="center">#### ⚙️ Config Layer
+
+
+
+**Made with ❤️ and Node.js**- **config.js** - Centralized configuration (server, scraper settings, tags)## ⚙️ Configuration
+
+
+
+⭐ **[Star this repo](https://github.com/Thawtarlamin/BUU-MAL)** if you find it helpful!
+
+
+
+*Last updated: November 5, 2025*## ⚙️ ConfigurationEdit `config/config.js` to customize:
+
+
+
+</div>
 
 
 Edit `config/config.js` to customize:```javascript
