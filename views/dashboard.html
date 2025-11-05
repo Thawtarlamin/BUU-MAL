@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buumal Scraper Dashboard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 1em;
+        }
+
+        .controls {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .control-group {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        input, select, button {
+            padding: 12px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            outline: none;
+        }
+
+        input:focus, select:focus {
+            border-color: #667eea;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            background: #f0f0f0;
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 1em;
+            color: #333;
+            margin-bottom: 10px;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #999;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-top: 10px;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 50px;
+            font-size: 1.3em;
+            color: white;
+        }
+
+        .error {
+            background: #ff4444;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            background: #44ff44;
+            color: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎬 Buumal Scraper Dashboard</h1>
+            <p class="subtitle">Web scraping tool for buumal.com video content</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalVideos">0</div>
+                <div class="stat-label">Total Videos Scraped</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalPages">0</div>
+                <div class="stat-label">Pages Scraped</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalTags">0</div>
+                <div class="stat-label">Available Tags</div>
+            </div>
+        </div>
+
+        <div class="controls">
+            <h2 style="margin-bottom: 20px; color: #667eea;">🔧 Scraping Controls</h2>
+            
+            <div class="control-group">
+                <input type="number" id="startPage" placeholder="Start Page" value="1" min="1">
+                <input type="number" id="endPage" placeholder="End Page" value="3" min="1">
+                <select id="tagSelect">
+                    <option value="">All Tags</option>
+                </select>
+                <label style="display: flex; align-items: center; gap: 8px; padding: 10px; background: #f8f9fa; border-radius: 8px; cursor: pointer;">
+                    <input type="checkbox" id="includeDetails" style="width: 20px; height: 20px; cursor: pointer;">
+                    <span style="color: #2c3e50; font-weight: 500;">📹 Include full video details (slower)</span>
+                </label>
+                <button onclick="scrapePages()">🚀 Start Scraping</button>
+                <button onclick="loadVideos()">📂 Load Saved Videos</button>
+            </div>
+
+            <div id="messageBox" class="hidden"></div>
+        </div>
+
+        <div id="loadingBox" class="loading hidden">
+            ⏳ Scraping in progress... Please wait.
+        </div>
+
+        <div class="videos-grid" id="videosGrid"></div>
+    </div>
+
+    <script>
+        // Load available tags
+        async function loadTags() {
+            try {
+                const response = await fetch('/api/tags');
+                const data = await response.json();
+                
+                if (data.success) {
+                    const select = document.getElementById('tagSelect');
+                    data.data.tags.forEach(tag => {
+                        const option = document.createElement('option');
+                        option.value = tag;
+                        option.textContent = tag;
+                        select.appendChild(option);
+                    });
+                    document.getElementById('totalTags').textContent = data.data.count;
+                }
+            } catch (error) {
+                console.error('Error loading tags:', error);
+            }
+        }
+
+        // Load statistics
+        async function loadStats() {
+            try {
+                const response = await fetch('/api/stats');
+                const data = await response.json();
+                
+                if (data.success && data.data.totalVideos > 0) {
+                    document.getElementById('totalVideos').textContent = data.data.totalVideos;
+                    document.getElementById('totalPages').textContent = Object.keys(data.data.videosByPage).length;
+                }
+            } catch (error) {
+                console.error('Error loading stats:', error);
+            }
+        }
+
+        // Scrape pages
+        async function scrapePages() {
+            const startPage = document.getElementById('startPage').value;
+            const endPage = document.getElementById('endPage').value;
+            const tag = document.getElementById('tagSelect').value;
+            const includeDetails = document.getElementById('includeDetails').checked;
+            
+            const loadingBox = document.getElementById('loadingBox');
+            const messageBox = document.getElementById('messageBox');
+            
+            // Update loading message based on details option
+            if (includeDetails) {
+                loadingBox.innerHTML = '⏳ Scraping with full details... This may take a while. Please wait.';
+            } else {
+                loadingBox.innerHTML = '⏳ Scraping in progress... Please wait.';
+            }
+            
+            loadingBox.classList.remove('hidden');
+            messageBox.classList.add('hidden');
+            
+            try {
+                let url = `/api/scrape/multiple?startPage=${startPage}&endPage=${endPage}`;
+                if (tag) url += `&tag=${tag}`;
+                if (includeDetails) url += `&details=true`;
+                
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                loadingBox.classList.add('hidden');
+                
+                if (data.success) {
+                    showMessage(`✅ Successfully scraped ${data.data.count} videos!`, 'success');
+                    displayVideos(data.data.videos);
+                    loadStats();
+                } else {
+                    showMessage(`❌ Error: ${data.error}`, 'error');
+                }
+            } catch (error) {
+                loadingBox.classList.add('hidden');
+                showMessage(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Load saved videos
+        async function loadVideos() {
+            const loadingBox = document.getElementById('loadingBox');
+            const messageBox = document.getElementById('messageBox');
+            
+            loadingBox.classList.remove('hidden');
+            messageBox.classList.add('hidden');
+            
+            try {
+                const response = await fetch('/api/videos');
+                const data = await response.json();
+                
+                loadingBox.classList.add('hidden');
+                
+                if (data.success) {
+                    displayVideos(data.data.videos);
+                    showMessage(`✅ Loaded ${data.data.videos.length} videos`, 'success');
+                    loadStats();
+                } else {
+                    showMessage(`❌ ${data.error}`, 'error');
+                }
+            } catch (error) {
+                loadingBox.classList.add('hidden');
+                showMessage(`❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Display videos
+        function displayVideos(videos) {
+            const grid = document.getElementById('videosGrid');
+            grid.innerHTML = '';
+            
+            videos.forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                
+                // Extract video ID from URL
+                const videoId = video.videoUrl ? video.videoUrl.split('/').pop() : (video.videoId || '');
+                
+                const thumbnailUrl = video.thumbnailUrl || video.thumbnail || 'https://via.placeholder.com/280x350?text=No+Thumbnail';
+                const videoTitle = video.title || 'Untitled Video';
+                const videoTag = video.tag || (video.tags && video.tags.length > 0 ? video.tags[0] : 'all');
+                const timeAgo = video.timeAgo || 'Unknown time';
+                const pageNum = video.page || 'N/A';
+                
+                card.innerHTML = `
+                    <img src="${thumbnailUrl}" 
+                         alt="${videoTitle}" 
+                         class="video-thumbnail" 
+                         onerror="this.onerror=null; this.src='https://via.placeholder.com/280x350?text=No+Thumbnail';">
+                    <div class="video-info">
+                        <div class="video-title">${videoTitle}</div>
+                        <span class="tag">${videoTag}</span>
+                        <div class="video-meta">
+                            <span>📅 ${timeAgo}</span>
+                            <span>📄 Page ${pageNum}</span>
+                        </div>
+                        <div style="margin-top: 15px; display: flex; gap: 10px;">
+                            <a href="/video-detail.html?id=${videoId}" 
+                               style="display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.9em; flex: 1; text-align: center;">
+                                🎬 View Details
+                            </a>
+                            <a href="${video.videoUrl || video.url}" 
+                               target="_blank" 
+                               style="display: inline-block; background: #48bb78; color: white; padding: 8px 16px; border-radius: 6px; text-decoration: none; font-size: 0.9em; flex: 1; text-align: center;">
+                                🔗 Source
+                            </a>
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Show message
+        function showMessage(message, type) {
+            const messageBox = document.getElementById('messageBox');
+            messageBox.textContent = message;
+            messageBox.className = type;
+            messageBox.classList.remove('hidden');
+            
+            setTimeout(() => {
+                messageBox.classList.add('hidden');
+            }, 5000);
+        }
+
+        // Initialize
+        loadTags();
+        loadStats();
+    </script>
+</body>
+</html>

@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buumal Scraper API - MVC Architecture</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 1.3em;
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            margin: 0 5px 20px 5px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 2em;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .architecture {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .arch-card {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .arch-card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .arch-card ul {
+            list-style: none;
+            padding: 0;
+            text-align: left;
+        }
+
+        .arch-card li {
+            padding: 8px 0;
+            color: #555;
+        }
+
+        .arch-card li:before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .endpoints {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .endpoint {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .method {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.85em;
+            margin-right: 10px;
+        }
+
+        .path {
+            color: #333;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .desc {
+            color: #666;
+            margin-top: 8px;
+            font-size: 0.95em;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-secondary:hover {
+            background: #667eea;
+            color: white;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .feature-title {
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .feature-desc {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #e83e8c;
+        }
+
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 Buumal Video Scraper</h1>
+        <p class="subtitle">Professional Web Scraping API with MVC Architecture</p>
+
+        <div style="text-align: center; margin-bottom: 40px;">
+            <span class="badge">MVC Architecture</span>
+            <span class="badge">RESTful API</span>
+            <span class="badge">Node.js + Express</span>
+            <span class="badge">Rate Limited</span>
+        </div>
+
+        <!-- Features -->
+        <div class="section">
+            <h2>✨ Features</h2>
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">🎯</div>
+                    <div class="feature-title">Smart Scraping</div>
+                    <div class="feature-desc">Intelligent video extraction with error handling</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🏷️</div>
+                    <div class="feature-title">Tag Filtering</div>
+                    <div class="feature-desc">Filter by 8 different categories</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">💾</div>
+                    <div class="feature-title">Auto Export</div>
+                    <div class="feature-desc">JSON & CSV export formats</div>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <div class="feature-title">Analytics</div>
+                    <div class="feature-desc">Detailed statistics and insights</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MVC Architecture -->
+        <div class="section">
+            <h2>🏗️ MVC Architecture</h2>
+            <div class="architecture">
+                <div class="arch-card">
+                    <h3>📦 Model</h3>
+                    <ul>
+                        <li>VideoModel</li>
+                        <li>StorageModel</li>
+                        <li>Data scraping</li>
+                        <li>File operations</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <h3>🎨 View</h3>
+                    <ul>
+                        <li>Dashboard UI</li>
+                        <li>HTML templates</li>
+                        <li>Static assets</li>
+                        <li>User interface</li>
+                    </ul>
+                </div>
+                <div class="arch-card">
+                    <h3>🎮 Controller</h3>
+                    <ul>
+                        <li>VideoController</li>
+                        <li>Business logic</li>
+                        <li>Request handling</li>
+                        <li>Response formatting</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- API Endpoints -->
+        <div class="section">
+            <h2>🔌 API Endpoints</h2>
+            <div class="endpoints">
+                <div class="endpoint">
+                    <span class="method">GET</span>
+                    <span class="path">/api/scrape</span>
+                    <div class="desc">Scrape videos from a single page. Query: <code>page</code>, <code>tag</code></div>
+                </div>
+                <div class="endpoint">
+                    <span class="method">GET</span>
+                    <span class="path">/api/scrape/multiple</span>
+                    <div class="desc">Scrape multiple pages. Query: <code>startPage</code>, <code>endPage</code>, <code>tag</code></div>
+                </div>
+                <div class="endpoint">
+                    <span class="method">GET</span>
+                    <span class="path">/api/scrape/video/:id</span>
+                    <div class="desc">Get video details by ID</div>
+                </div>
+                <div class="endpoint">
+                    <span class="method">GET</span>
+                    <span class="path">/api/videos</span>
+                    <div class="desc">Get all saved videos. Query: <code>page</code>, <code>limit</code></div>
+                </div>
+                <div class="endpoint">
+                    <span class="method">GET</span>
+                    <span class="path">/api/tags</span>
+                    <div class="desc">Get available tags/categories</div>
+                </div>
+                <div class="endpoint">
+                    <span class="method">GET</span>
+                    <span class="path">/api/stats</span>
+                    <div class="desc">Get scraping statistics</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Start -->
+        <div class="section">
+            <h2>🚀 Quick Start</h2>
+            <p style="margin-bottom: 15px;">Example API call to scrape page 1:</p>
+            <pre>curl http://localhost:3000/api/scrape?page=1</pre>
+            
+            <p style="margin: 20px 0 15px 0;">Scrape multiple pages with tag filter:</p>
+            <pre>curl http://localhost:3000/api/scrape/multiple?startPage=1&endPage=3&tag=myanmar</pre>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <a href="/dashboard.html" class="btn btn-primary">📊 Open Dashboard</a>
+            <a href="/api/videos" class="btn btn-secondary" target="_blank">📚 View API</a>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 2px solid #eee;">
+            <p style="color: #999; font-size: 0.9em;">
+                Built with Node.js, Express, Cheerio & Axios<br>
+                MVC Architecture • RESTful API • Rate Limited
+            </p>
+        </div>
+    </div>
+</body>
+</html>
