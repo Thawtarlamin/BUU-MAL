@@ -5,6 +5,52 @@ const config = require('../config/config');
 class VideoModel {
     constructor() {
         this.baseUrl = config.scraper.baseUrl;
+        this.maxRetries = 3;
+    }
+
+    /**
+     * Make HTTP request with retry logic
+     * @param {string} url - URL to fetch
+     * @param {number} retryCount - Current retry attempt
+     * @returns {Promise<Object>} Response data
+     */
+    async makeRequest(url, retryCount = 0) {
+        try {
+            const response = await axios.get(url, {
+                headers: {
+                    'User-Agent': config.scraper.userAgent,
+                    ...config.scraper.headers
+                },
+                timeout: config.scraper.timeout,
+                validateStatus: function (status) {
+                    return status >= 200 && status < 500; // Don't throw on 4xx errors
+                }
+            });
+
+            // Check if response is successful
+            if (response.status === 403) {
+                throw new Error('Access forbidden (403) - Website may be blocking the request');
+            }
+
+            if (response.status === 404) {
+                throw new Error('Page not found (404)');
+            }
+
+            if (response.status >= 400) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
+
+            return response;
+
+        } catch (error) {
+            // Retry logic for network errors
+            if (retryCount < this.maxRetries) {
+                console.log(`Retry ${retryCount + 1}/${this.maxRetries} for ${url}`);
+                await this.sleep(2000 * (retryCount + 1)); // Exponential backoff
+                return this.makeRequest(url, retryCount + 1);
+            }
+            throw error;
+        }
     }
 
     /**
@@ -20,13 +66,8 @@ class VideoModel {
                 ? `${this.baseUrl}?tag=${tag}&page=${page}`
                 : `${this.baseUrl}?page=${page}`;
 
-            const response = await axios.get(url, {
-                headers: {
-                    'User-Agent': config.scraper.userAgent,
-                    ...config.scraper.headers
-                },
-                timeout: config.scraper.timeout
-            });
+            console.log(`Scraping: ${url}`);
+            const response = await this.makeRequest(url);
 
             const $ = cheerio.load(response.data);
             const videos = [];
@@ -120,13 +161,8 @@ class VideoModel {
      */
     async scrapeVideoDetails(videoUrl) {
         try {
-            const response = await axios.get(videoUrl, {
-                headers: {
-                    'User-Agent': config.scraper.userAgent,
-                    ...config.scraper.headers
-                },
-                timeout: config.scraper.timeout
-            });
+            console.log(`Fetching video details: ${videoUrl}`);
+            const response = await this.makeRequest(videoUrl);
 
             const $ = cheerio.load(response.data);
             
